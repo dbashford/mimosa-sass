@@ -1,4 +1,4 @@
-mimosa-stylus
+mimosa-sass
 ===========
 
 ## Overview
