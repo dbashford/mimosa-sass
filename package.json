@@ -18,7 +18,9 @@
     "mimosa",
     "mmodule",
     "sass",
-    "compass"
+    "scss",
+    "compass",
+    "compiler"
   ],
   "dependencies": {
     "logmimosa": "0.6.0"
