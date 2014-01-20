@@ -4,7 +4,8 @@ var path = require( 'path' )
   , spawn = require( 'child_process' ).spawn
   , logger = require( 'logmimosa' )
   , config = require( './config' )
-  , importRegex = /@import ['"](.*)['"]/g
+  , importRegex = /@import[\s]+['"]([^;]*)['"]/gm
+  , importSplitRegex = /['"],\s*['"']/gm
   , getExtensions = function ( mimosaConfig ) {
     return mimosaConfig.sass.extensions;
   }
@@ -125,6 +126,7 @@ module.exports = {
   name: "sass",
   compilerType: "css",
   importRegex: importRegex,
+  importSplitRegex: importSplitRegex,
   compile: compile,
   determineBaseFiles: determineBaseFiles,
   getImportFilePath: getImportFilePath,
