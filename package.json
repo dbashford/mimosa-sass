@@ -1,6 +1,6 @@
 {
   "name": "mimosa-sass",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/dbashford/mimosa-sass",
   "author": "David Bashford",
   "description": "A SASS compiler for Mimosa 2.0+",
