@@ -6,15 +6,21 @@ var path = require( 'path' )
   , config = require( './config' )
   , importRegex = /@import[\s]+['"]([^;]*)['"]/gm
   , importSplitRegex = /['"],\s*['"']/gm
+  , importPathReplace = /(\w+\.|[\w-]+$)/
   , getExtensions = function ( mimosaConfig ) {
     return mimosaConfig.sass.extensions;
   }
   , isInclude = function ( fileName, includeToBaseHash ) {
     return ( includeToBaseHash[fileName] || path.basename( fileName ).charAt( 0 ) === '_' );
-  }
-  , getImportFilePath = function ( baseFile, importPath ) {
-    return path.join( path.dirname( baseFile ), importPath.replace( /(\w+\.|[\w-]+$)/, '_$1' ) );
   };
+
+var getImportFilePath = function ( baseFile, importPath ) {
+  var dir = path.dirname( baseFile );
+  return [
+    path.join( dir, importPath.replace( importPathReplace, '_$1' ) ),
+    path.join( dir, importPath )
+  ];
+};
 
 var _compileRuby = function ( mimosaConfig, file, done ) {
   var text = file.inputFileText

@@ -7,6 +7,8 @@ This is a SASS compiler for the Mimosa build tool. This module is for use with M
 
 For more information regarding Mimosa, see http://mimosa.io
 
+Note: Version `1.1.0` works with Mimosa `2.0.8` and above.
+
 ## Usage
 
 Add `'sass'` to your list of modules.  That's all!  Mimosa will install the module for you when you start `mimosa watch` or `mimosa build`.
