@@ -1,5 +1,5 @@
 exports.config =
-  modules: ["jshint"]
+  modules: ["jshint", "copy"]
   watch:
     sourceDir: "src"
     compiledDir: "lib"

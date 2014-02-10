@@ -2,12 +2,13 @@
 
 var path = require( 'path' )
   , spawn = require( 'child_process' ).spawn
-  , logger = require( 'logmimosa' )
+  , logger = null
   , config = require( './config' )
   , importRegex = /@import[\s]+['"]([^;]*)['"]/gm
   , importSplitRegex = /['"],\s*['"']/gm
   , importPathReplace = /(\w+\.|[\w-]+$)/
   , getExtensions = function ( mimosaConfig ) {
+    logger = mimosaConfig.log;
     return mimosaConfig.sass.extensions;
   }
   , isInclude = function ( fileName, includeToBaseHash ) {
@@ -29,7 +30,7 @@ var _compileRuby = function ( mimosaConfig, file, done ) {
     , error = null
     , compilerOptions = [ '--stdin', '--load-path', mimosaConfig.watch.sourceDir, '--load-path', path.dirname(fileName), '--no-cache' ];
 
-  if ( logger.isDebug ) {
+  if ( logger.isDebug() ) {
     logger.debug( "Beginning Ruby compile of SASS file [[ " + fileName + " ]]" );
   }
 
@@ -54,7 +55,7 @@ var _compileRuby = function ( mimosaConfig, file, done ) {
   });
 
   sass.on( 'exit', function ( code ) {
-    if ( logger.isDebug ) {
+    if ( logger.isDebug() ) {
       logger.debug( "Finished Ruby SASS compile for file [[ " + fileName + " ]], errors? " + !!error );
     }
     done( error, result );
@@ -87,7 +88,7 @@ var _preCompileRubySASS = function ( mimosaConfig, file, done ) {
 };
 
 var _compileNode = function ( mimosaConfig, file, done ) {
-  if ( logger.isDebug ) {
+  if ( logger.isDebug() ) {
     logger.debug( "Beginning node compile of SASS file [[ " + file.inputFileName + " ]]" );
   }
 
@@ -113,7 +114,7 @@ var determineBaseFiles = function ( allFiles ) {
     return( !isInclude( file, {} ) && file.indexOf('compass') < 0 );
   });
 
-  if ( logger.isDebug ) {
+  if ( logger.isDebug() ) {
     logger.debug( "Base files for SASS are:\n" + baseFiles.join( '\n' ) );
   }
 

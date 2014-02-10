@@ -1,8 +1,6 @@
 "use strict";
 
-var exec = require( 'child_process' ).exec
-  , logger = require( 'logmimosa' );
-
+var exec = require( 'child_process' ).exec;
 
 exports.defaults = function() {
   return {
@@ -20,7 +18,7 @@ exports.placeholder = function() {
 };
 
 var _doRubySASSChecking = function ( config ) {
-  logger.debug( "Checking if Compass/SASS is available" );
+  config.log.debug( "Checking if Compass/SASS is available" );
   exec( 'compass --version', function ( error, stdout, stderr ) {
     config.sass.hasCompass = !error;
   });
