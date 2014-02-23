@@ -1,32 +1,33 @@
 "use strict";
 
-var exec = require( 'child_process' ).exec;
+var exec = require( "child_process" ).exec;
 
 exports.defaults = function() {
   return {
     sass: {
-      extensions: [ "sass", "scss" ],
+      extensions: [ "sass", "scss" ]
     }
   };
 };
 
 exports.placeholder = function() {
-  return "\t\n\n"+
-         "  # sass:                  # config settings for the SASS compiler module\n" +
-         "    # lib: undefined       # use this property to provide a specific version of SASS\n" +
-         "    # extensions: [\"sass\", \"scss\"]   # default extensions for SASS files\n";
+  return "\t\n\n" +
+         "  sass:                        # config settings for the SASS compiler module\n" +
+         "    lib: undefined             # use this property to provide a specific version of SASS\n" +
+         "    extensions: [\"sass\", \"scss\"]   # default extensions for SASS files\n" +
+         "    includePaths: []           # an array of paths to include for sass compilation\n";
 };
 
 var _doRubySASSChecking = function ( config ) {
   config.log.debug( "Checking if Compass/SASS is available" );
-  exec( 'compass --version', function ( error, stdout, stderr ) {
+  exec( "compass --version", function ( error, stdout, stderr ) {
     config.sass.hasCompass = !error;
   });
 
-  if ( process.platform === 'win32' ) {
-    config.sass.runSass = 'sass.bat';
+  if ( process.platform === "win32" ) {
+    config.sass.runSass = "sass.bat";
   } else {
-    config.sass.runSass = 'sass';
+    config.sass.runSass = "sass";
   }
 
   exec( config.sass.runSass + " --version", function ( error, stdout, stderr ) {
