@@ -99,7 +99,8 @@ var _compileNode = function ( mimosaConfig, file, done ) {
 
   mimosaConfig.sass.lib.render({
     data: file.inputFileText,
-    includePaths: [ mimosaConfig.watch.sourceDir, path.dirname( file.inputFileName ) ],
+    includePaths: [ mimosaConfig.watch.sourceDir, path.dirname( file.inputFileName ) ]
+      .concat(mimosaConfig.sass.includePaths||[]),
     success: function ( css ) {
       finished( null, css );
     },
