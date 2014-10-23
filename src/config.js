@@ -5,6 +5,7 @@ var exec = require( "child_process" ).exec;
 exports.defaults = function() {
   return {
     sass: {
+      sourceMap: true,
       extensions: [ "sass", "scss" ]
     }
   };
