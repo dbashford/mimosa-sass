@@ -14,7 +14,9 @@ exports.placeholder = function() {
   return "\t\n\n" +
          "  sass:                        # config settings for the SASS compiler module\n" +
          "    lib: undefined             # use this property to provide a specific version of SASS\n" +
-         "    extensions: [\"sass\", \"scss\"]   # default extensions for SASS files\n" +
+         "    sourceMap: true            # whether or not to include source maps\n" +
+         "                               # source maps are disabled by default during 'mimosa build'\n" +
+         "    extensions: [\"sass\", \"scss\"]  # default extensions for SASS files\n" +
          "    includePaths: []           # an array of paths to include for sass compilation\n";
 };
 
@@ -44,6 +46,12 @@ exports.validate = function( config, validators ) {
         errors.push( "sass.extensions cannot be an empty array");
       }
     }
+  }
+
+  validators.ifExistsIsBoolean( errors, "sass.sourceMap", config.sass.sourceMap );
+
+  if ( config.isBuild ) {
+    config.sass.sourceMap = false;
   }
 
   if ( !config.sass.lib ) {
