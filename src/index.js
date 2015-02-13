@@ -112,7 +112,10 @@ var _compileNode = function ( mimosaConfig, file, done ) {
       }
     },
     error: function ( error ) {
-      done( error, "", null );
+      var err = error.message + ", occured at line [[ " + error.line +
+        " ]], column [[ " + error.column + " ]].";
+
+      done( err, "", null );
     }
   };
 
