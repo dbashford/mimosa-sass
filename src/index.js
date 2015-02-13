@@ -61,7 +61,7 @@ var _compileRuby = function ( mimosaConfig, file, done ) {
     error += buffer.toString();
   });
 
-  sass.on( "exit", function ( code ) {
+  sass.on( "exit", function () {
     if ( logger.isDebug() ) {
       logger.debug( "Finished Ruby SASS compile for file [[ " + fileName + " ]], errors? " + !!error );
     }
@@ -104,8 +104,12 @@ var _compileNode = function ( mimosaConfig, file, done ) {
   var opts = {
     includePaths: [ mimosaConfig.watch.sourceDir, path.dirname( file.inputFileName ) ]
       .concat( mimosaConfig.sass.includePaths || [] ),
-    success: function ( css, map ) {
-      done( null, css, map );
+    success: function ( result, map ) {
+      if ( result.css ) {
+        done( null, result.css, result.map );
+      } else {
+        done( null, result, map );
+      }
     },
     error: function ( error ) {
       done( error, "", null );

@@ -61,6 +61,3 @@ exports.validate = function( config, validators ) {
 
   return errors;
 };
-
-
-
