@@ -106,6 +106,9 @@ var _compileNode = function ( mimosaConfig, file, done ) {
       .concat( mimosaConfig.sass.includePaths || [] ),
     success: function ( result, map ) {
       if ( result.css ) {
+        if (result.map === "{}") {
+          result.map = null;
+        }
         done( null, result.css, result.map );
       } else {
         done( null, result, map );
