@@ -116,7 +116,7 @@ var _compileNode = function ( mimosaConfig, file, done ) {
     },
     error: function ( error ) {
       var err = error.message + ", occured at line [[ " + error.line +
-        " ]], column [[ " + error.column + " ]].";
+        " ]], column [[ " + error.column + " ]], in file [[ " + error.file + " ]]";
 
       done( err, "", null );
     }
