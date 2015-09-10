@@ -103,23 +103,7 @@ var _compileNode = function ( mimosaConfig, file, done ) {
 
   var opts = {
     includePaths: [ mimosaConfig.watch.sourceDir, path.dirname( file.inputFileName ) ]
-      .concat( mimosaConfig.sass.includePaths || [] ),
-    success: function ( result, map ) {
-      if ( result.css ) {
-        if (result.map === "{}") {
-          result.map = null;
-        }
-        done( null, result.css, result.map );
-      } else {
-        done( null, result, map );
-      }
-    },
-    error: function ( error ) {
-      var err = error.message + ", occured at line [[ " + error.line +
-        " ]], column [[ " + error.column + " ]], in file [[ " + error.file + " ]]";
-
-      done( err, "", null );
-    }
+      .concat( mimosaConfig.sass.includePaths || [] )
   };
 
   if ( !mimosaConfig.sass.sourceMap ) {
@@ -133,7 +117,33 @@ var _compileNode = function ( mimosaConfig, file, done ) {
     opts.file = path.resolve( file.inputFileName );
   }
 
-  mimosaConfig.sass.lib.render( opts );
+  mimosaConfig.sass.lib.render( opts,
+    function(error, result) {
+      if (error) {
+        var err = error.message + ", occured at line [[ " + error.line +
+          " ]], column [[ " + error.column + " ]], in file [[ " + error.file + " ]]";
+
+        done( err, "", null );
+      } else {
+        var map = null
+          , css = null
+          ;
+
+        if (result.map) {
+          map = result.map.toString();
+          if (map === "{}") {
+            map = null;
+          }
+        }
+
+        if (result.css) {
+          css = result.css.toString()
+        }
+        
+        done( null, css, map );
+      }
+    }
+  );
 };
 
 var determineBaseFiles = function ( allFiles ) {
@@ -204,6 +214,5 @@ module.exports = {
   isInclude: isInclude,
   extensions: getExtensions,
   defaults: config.defaults,
-  placeholder: config.placeholder,
   validate: config.validate
 };

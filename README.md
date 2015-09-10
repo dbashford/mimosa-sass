@@ -9,9 +9,7 @@ You can use this module for both Ruby SASS and [node-sass](https://github.com/an
 
 For more information regarding Mimosa, see http://mimosa.io
 
-Note: Version `1.1.0` works with Mimosa `2.0.8` and above.
-
-Note: Using version `2.0+` with the node-sass compiler requires `1.0+` of that compiler.
+Note: Using version `3.0+` of the node-sass compiler requires `3.0+` of this module.
 
 ## Usage
 

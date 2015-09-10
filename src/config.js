@@ -11,16 +11,6 @@ exports.defaults = function() {
   };
 };
 
-exports.placeholder = function() {
-  return "\t\n\n" +
-         "  sass:                        # config settings for the SASS compiler module\n" +
-         "    lib: undefined             # use this property to provide a specific version of SASS\n" +
-         "    sourceMap: true            # whether or not to include source maps\n" +
-         "                               # source maps are disabled by default during 'mimosa build'\n" +
-         "    extensions: [\"sass\", \"scss\"]  # default extensions for SASS files\n" +
-         "    includePaths: []           # an array of paths to include for sass compilation\n";
-};
-
 var _doRubySASSChecking = function ( config ) {
   config.log.debug( "Checking if Compass/SASS is available" );
   exec( "compass --version", function ( error, stdout, stderr ) {
